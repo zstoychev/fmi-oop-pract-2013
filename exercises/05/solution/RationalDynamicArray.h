@@ -9,7 +9,6 @@ class RationalDynamicArray {
 	int size;
 
 	void copyArr(const Rational* arr);
-	void freeArr(Rational* arr);
 	void ensureSpace();
 
 public:

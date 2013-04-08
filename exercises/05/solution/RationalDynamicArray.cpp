@@ -3,18 +3,11 @@
 #include "RationalDynamicArray.h"
 
 void RationalDynamicArray::copyArr(const Rational* arr) {
-	arr = (Rational*) operator new[](sizeof(Rational) * capacity);
+	this->arr = new Rational[capacity];
 
 	for (int i = 0; i < size; i++) {
 		this->arr[i] = arr[i];
 	}
-}
-
-void RationalDynamicArray::freeArr(Rational* arr) {
-	for (int i = 0; i < size; i++) {
-		arr[i].~Rational();
-	}
-	operator delete[](arr);
 }
 
 void RationalDynamicArray::ensureSpace() {
@@ -22,7 +15,7 @@ void RationalDynamicArray::ensureSpace() {
 		Rational* oldArr = arr;
 		capacity *= 2;
 		copyArr(oldArr);
-		freeArr(oldArr);
+		delete[] oldArr;
 	}
 }
 
@@ -37,7 +30,7 @@ RationalDynamicArray::RationalDynamicArray(const RationalDynamicArray& other)
 }
 
 RationalDynamicArray::~RationalDynamicArray() {
-	freeArr(arr);
+	delete[] arr;
 }
 
 void RationalDynamicArray::swap(RationalDynamicArray& other) {
@@ -63,7 +56,7 @@ void RationalDynamicArray::insertAt(int index, const Rational& rat) {
 	assert(index >= 0 && index <= size);
 	ensureSpace();
 
-	for (int i = size; i >= index; i++) {
+	for (int i = size - 1; i >= index; i--) {
 		arr[i + 1] = arr[i];
 	}
 
@@ -85,19 +78,19 @@ void RationalDynamicArray::removeAt(int index) {
 }
 
 Rational& RationalDynamicArray::get(int index) {
-	assert(index > 0 && index < size);
+	assert(index >= 0 && index < size);
 
 	return arr[index];
 }
 
 const Rational& RationalDynamicArray::get(int index) const {
-	assert(index > 0 && index < size);
+	assert(index >= 0 && index < size);
 
 	return arr[index];
 }
 
 void RationalDynamicArray::set(int index, const Rational& rat) {
-	assert(index > 0 && index < size);
+	assert(index >= 0 && index < size);
 
 	arr[index] = rat;
 }
