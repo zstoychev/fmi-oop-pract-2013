@@ -13,6 +13,7 @@ class RationalDynamicArray {
 
 public:
 	RationalDynamicArray();
+	explicit RationalDynamicArray(int capacity);
 	RationalDynamicArray(const RationalDynamicArray& other);
 	~RationalDynamicArray();
 	RationalDynamicArray operator=(const RationalDynamicArray& other);

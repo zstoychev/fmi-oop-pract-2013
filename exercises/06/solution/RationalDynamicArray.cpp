@@ -24,6 +24,11 @@ RationalDynamicArray::RationalDynamicArray()
 	arr = new Rational[capacity];
 }
 
+RationalDynamicArray::RationalDynamicArray(int capacity)
+	: capacity(capacity), size(0) {
+	arr = new Rational[capacity];
+}
+
 RationalDynamicArray::RationalDynamicArray(const RationalDynamicArray& other)
 	: capacity(other.capacity), size(other.size) {
 	copyArr(other.arr);
